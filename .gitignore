@@ -1,0 +1,49 @@
+# Custom .gitignore file
+*.csv
+.vscode/
+.idea/
+
+# Data files
+Data/cifar-10/
+Data/cifar-10/test/*.png
+Data/cifar-10/train/*.png
+
+# Classic ignores
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+CIFAR/
+venv/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data files
+*.pkl
+*.h5
+*.hdf5
+data/
+datasets/
+cifar-10-batches-py/
+cifar-10-python.tar.gz
+
+# Model checkpoints
+*.pth
+*.ckpt
+checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
