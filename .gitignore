@@ -2,6 +2,7 @@
 *.csv
 .vscode/
 .idea/
+.venv/
 
 # Data files
 Data/cifar-10/
