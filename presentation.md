@@ -39,17 +39,20 @@ style: |
 
 **机器学习期末项目**
 
+江煜 $\space$ 朱洋微 $\space$ 高建峰
+
 ---
 
 #  项目概览
 
 ## 研究目标
-深入探究和对比**传统机器学习方法**与**深度学习方法**在图像分类任务上的性能差异
+深入探究和对比 **传统机器学习方法(SVM)** 与 **深度学习方法(CNN)** 在图像分类任务上的差异
 
 ## 数据集：CIFAR-10
 -  **60,000** 张 32×32 彩色图像
 -  **10** 个类别：飞机、汽车、鸟、猫、鹿、狗、青蛙、马、船、卡车
 -  训练集 50,000 张，测试集 10,000 张
+> 我们从[Kaggle](https://www.kaggle.com/competitions/cifar-10/data?select=trainLabels.csv)上获取数据并评价模型
 
 ![bg right:40% contain](./resources/CIFAR-10-web.png)
 
@@ -115,6 +118,19 @@ style: |
 
 手工特征选择的**困难性**由此可见
 
+<style>
+.top-right-image {
+  position: absolute;
+  top: 200px;
+  right: 50px;
+  width: 800px;
+}
+</style>
+
+<img src="./resources/PCA_Variation.png" class="top-right-image">
+
+
+
 ---
 
 #  t-SNE 可视化分析
@@ -127,8 +143,8 @@ style: |
 ### 观察结果
 -  无法找到完全分离的簇
 -  cat 与  deer 分布相近
--  ship 与  airplane 位置相近
-- 相似类别**严重重叠**
+-  dog 与  ship 距离较远
+- 相似类别**严重重叠**，但有些类别之间的差距足够大
 
 </div>
 <div>
@@ -144,12 +160,13 @@ style: |
 </div>
 </div>
 
-
 ---
 
 ![bg 60%](./resources/t-sne-picture.png)
 
 ---
+
+
 
 #  Part 2: SVM 模型训练
 
