@@ -1,5 +1,5 @@
 ---
-marp: false
+marp: true
 theme: default
 paginate: true
 backgroundColor: #ffffff
@@ -171,7 +171,7 @@ style: |
 
 #  Part 2: SVM 模型训练
 
-## 核函数对比实验
+### 核函数对比实验
 
 对比不同核函数（linear、rbf、poly、sigmoid）在 SVM 模型中的表现，通过训练时间和测试集准确率两个指标，选出最优的核函数。
 ![alt text](resources/svm_FourKernel.png)
@@ -185,9 +185,9 @@ style: |
 
 #  超参数优化
 
-## 粗粒度：网格搜索 + 三折交叉验证
+### 粗粒度：网格搜索 + 三折交叉验证
 
-![alt text](resources/svm_heatmap.png)
+![bg right contain](resources/svm_heatmap.png)
 gamma='scale' 的具体值 = 0.001388
 
 **最优参数组合**: `C=5, gamma=0.002`
@@ -195,19 +195,14 @@ gamma='scale' 的具体值 = 0.001388
 **交叉验证准确率**: 58.60%
 
 ### 参数影响分析
-- **gamma** 影响显著
-  - gamma过小/过大都导致性能下降
-  - 显然在gamma=0.002取最优，可进一步精确探索
-- **C** 影响相对较小
-  - 在最优gamma区间内变化不大
-  - C=1表现最差，首先排除
-  - 鉴于gamma=scale, C=3准确率相差较大
-  - C不宜过大，暂定最优C=5
+- **gamma** 影响显著。gamma过小/过大都导致性能下降，显然在gamma=0.002取最优，可进一步精确探索
+- **C** 影响相对较小。在最优gamma区间内变化不大，C=1表现最差，首先排除。鉴于gamma=scale, C=3准确率相差较大，C不宜过大，暂定最优C=5
 
 ---
+
 ## 细粒度：细化gamma+五折交叉验证
 gamma: 0.001到0.003之间随机取30个值(主要集中在0.002附近)
-![alt text](resources/svm_gamma.png)
+![bg left:50% contain](resources/svm_gamma.png)
 
 ### 分析
 1. 最优gamma值：0.002020（对应准确率：0.5974）
@@ -372,7 +367,21 @@ gamma: 0.001到0.003之间随机取30个值(主要集中在0.002附近)
 
 ---
 
-![bg 80%](./resources/CIFAR-10_Result_DeepLearning.png)
+# Kaggle提交得分
+
+$\space$
+$\space$
+$\space$
+$\space$
+$\space$
+$\space$
+$\space$
+$\space$
+$\space$
+$\space$
+$\space$
+
+![bg 60%](./resources/CIFAR-10_Result_DeepLearning.png)
 
 ---
 
