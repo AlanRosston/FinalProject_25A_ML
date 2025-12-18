@@ -1,5 +1,5 @@
 ---
-marp: true
+marp: false
 theme: default
 paginate: true
 backgroundColor: #ffffff
@@ -173,36 +173,53 @@ style: |
 
 ## 核函数对比实验
 
-| 核函数 | 准确率 | 训练时间 |
-|:---:|:---:|:---:|
-| linear | 48.35% | 263秒 |
-| **rbf** | **58.65%** | **8.7秒** |
-| poly | 53.35% | 12.9秒 |
-| sigmoid | 50.70% | 7.6秒 |
+对比不同核函数（linear、rbf、poly、sigmoid）在 SVM 模型中的表现，通过训练时间和测试集准确率两个指标，选出最优的核函数。
+![alt text](resources/svm_FourKernel.png)
 
 ###  最优选择：RBF 核函数
 - 准确率最高
-- 训练效率优秀
+- 训练效率较优秀
 
 ---
 
 #  超参数优化
 
-## 网格搜索 + 交叉验证
+## 粗粒度：网格搜索 + 三折交叉验证
 
-**最优参数组合**: `C=4, gamma=0.002`
+![alt text](resources/svm_heatmap.png)
+gamma='scale' 的具体值 = 0.001388
 
-**交叉验证准确率**: 59.32%
+**最优参数组合**: `C=5, gamma=0.002`
+
+**交叉验证准确率**: 58.60%
 
 ### 参数影响分析
-- **gamma** 影响最显著
+- **gamma** 影响显著
   - gamma过小/过大都导致性能下降
+  - 显然在gamma=0.002取最优，可进一步精确探索
 - **C** 影响相对较小
   - 在最优gamma区间内变化不大
+  - C=1表现最差，首先排除
+  - 鉴于gamma=scale, C=3准确率相差较大
+  - C不宜过大，暂定最优C=5
+
+---
+## 细粒度：细化gamma+五折交叉验证
+gamma: 0.001到0.003之间随机取30个值(主要集中在0.002附近)
+![alt text](resources/svm_gamma.png)
+
+### 分析
+1. 最优gamma值：0.002020（对应准确率：0.5974）
+2. 0.002附近gamma值的平均准确率：0.5964
+3. gamma偏离0.002越远，准确率变化趋势：下降
+
+**最优参数**：C=5, gamma=0.002020
 
 ---
 
 #  SVM 分类结果分析
+
+![alt text](resources/svm_report.png)
 
 ## 测试集准确率: **59.55%**
 
@@ -233,6 +250,8 @@ style: |
 
 #  混淆矩阵分析：类别混淆问题
 
+![alt text](resources/svm_ConfusionMatrix.png)
+
 ## 严重的类别混淆现象
 
 ###  Cat 的误判分析
@@ -247,7 +266,44 @@ style: |
 
 ---
 
-![bg 80%](./resources/SVM_Kaggle.png)
+# ROC曲线分析
+
+![alt text](resources/svm_ROC.png)
+
+## 分析
+1. **整体表现**
+   
+所有类别的 ROC 曲线都显著优于随机分类（黑色虚线，AUC=0.5），说明模型对各类别都有一定区分能力。
+
+2. **类别间差异**
+
+表现优异的类别：automobile（AUC=0.944）、truck（AUC=0.946）、frog（AUC=0.932）等，ROC 曲线靠近左上角，AUC 接近 0.95，说明这些类别被模型准确区分的概率很高；
+
+表现较差的类别：cat（AUC=0.777），ROC 曲线更靠近随机虚线，AUC 明显低于其他类别，是模型的薄弱项。
+
+---
+
+# Cat类别调优
+
+先单独尝试了类别加权重新训练模型，效果甚微，分类报告无变化<br>
+
+## 定制化特征工程
+挖掘 cat 类独有的视觉特征（形状、纹理、边缘等），弥补原有通用特征对 cat 类区分度不足的缺陷。
+
+![alt text](resources/svm_report2.png)
+
+### 分析
+1. 猫类别表现有所提升（10%）
+2. 整体准确率有微小提升（0.1%）
+
+---
+# kaggle提交结果
+
+![alt text](resources/SVM-Kaggle2.png)
+
+**分数**：
+1. 0.59690（gamma=0.002020）
+2. 0.59540 (gamma=0.002)
 
 ---
 
