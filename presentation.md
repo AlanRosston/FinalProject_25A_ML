@@ -76,6 +76,7 @@ style: |
 </div>
 <div>
 
+
 ### 深度学习方法
 1. **端到端学习**
    - 直接从原始像素学习
@@ -174,29 +175,19 @@ style: |
 ### 核函数对比实验
 
 对比不同核函数（linear、rbf、poly、sigmoid）在 SVM 模型中的表现，通过训练时间和测试集准确率两个指标，选出最优的核函数。
-![alt text](resources/svm_FourKernel.png)
+![](resources/svm_FourKernel.png)
 
-###  最优选择：RBF 核函数
-
-- 准确率最高
-- 训练效率较优秀
 
 ---
-
 #  超参数优化
 
-### 粗粒度：网格搜索 + 三折交叉验证
+## 粗粒度：<br>网格搜索 + 三折交叉验证
 
 ![bg right contain](resources/svm_heatmap.png)
-gamma='scale' 的具体值 = 0.001388
-
-**最优参数组合**: `C=5, gamma=0.002`
-
-**交叉验证准确率**: 58.60%
 
 ### 参数影响分析
-- **gamma** 影响显著。gamma过小/过大都导致性能下降，显然在gamma=0.002取最优，可进一步精确探索
-- **C** 影响相对较小。在最优gamma区间内变化不大，C=1表现最差，首先排除。鉴于gamma=scale, C=3准确率相差较大，C不宜过大，暂定最优C=5
+- **gamma** 影响显著。显然在gamma=0.002取最优，可进一步精确探索
+- **C** 影响相对较小。在最优gamma区间内变化不大
 
 ---
 
@@ -215,7 +206,7 @@ gamma: 0.001到0.003之间随机取30个值(主要集中在0.002附近)
 
 #  SVM 分类结果分析
 
-![alt text](resources/svm_report.png)
+![bg left:50% contain](resources/svm_report.png)
 
 ## 测试集准确率: **59.55%**
 
@@ -244,34 +235,28 @@ gamma: 0.001到0.003之间随机取30个值(主要集中在0.002附近)
 
 ---
 
-#  混淆矩阵分析：类别混淆问题
+#  混淆矩阵分析：
 
-![alt text](resources/svm_ConfusionMatrix.png)
+![bg left:45% contain](resources/svm_ConfusionMatrix.png)
 
 ## 严重的类别混淆现象
 
 ###  Cat 的误判分析
 - 200个样本中仅 **60个** 正确分类 (30%)
 - **58个** 被误判为  dog
-- **16个** 被误判为  bird
 
 ###  根本原因
-1. 32×32 低分辨率丢失关键细节
-2. 猫/狗的毛发、轮廓特征相似
-3. **SVM + HOG 无法捕捉细粒度语义差异**
+- 32×32 低分辨率丢失关键细节
+- 猫/狗的毛发、轮廓特征相似
+- **SVM + HOG 无法捕捉细粒度语义差异**
 
 ---
 
 # ROC曲线分析
 
-![alt text](resources/svm_ROC.png)
+![bg right:45% contain](resources/svm_ROC.png)
 
-## 分析
-1. **整体表现**
-   
-所有类别的 ROC 曲线都显著优于随机分类（黑色虚线，AUC=0.5），说明模型对各类别都有一定区分能力。
-
-2. **类别间差异**
+**类别间差异**
 
 表现优异的类别：automobile（AUC=0.944）、truck（AUC=0.946）、frog（AUC=0.932）等，ROC 曲线靠近左上角，AUC 接近 0.95，说明这些类别被模型准确区分的概率很高；
 
@@ -286,16 +271,18 @@ gamma: 0.001到0.003之间随机取30个值(主要集中在0.002附近)
 ## 定制化特征工程
 挖掘 cat 类独有的视觉特征（形状、纹理、边缘等），弥补原有通用特征对 cat 类区分度不足的缺陷。
 
-![alt text](resources/svm_report2.png)
+---
+![bg left:60% contain](resources/svm_report2.png)
 
-### 分析
-1. 猫类别表现有所提升（10%）
-2. 整体准确率有微小提升（0.1%）
+## 分析
+- 猫类别表现有所提升（10%）
+- 其他类别未受影响 
+- 整体准确率有微小提升（0.1%）
 
 ---
 # kaggle提交结果
 
-![alt text](resources/SVM-Kaggle2.png)
+![bg right:50% contain](resources/SVM-Kaggle2.png)
 
 **分数**：
 1. 0.59690（gamma=0.002020）
