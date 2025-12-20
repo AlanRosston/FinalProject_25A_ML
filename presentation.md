@@ -466,7 +466,7 @@ $\space$
 
 ## 为什么 HOG+SVM 落后？
 
-## 传统方法的局限性
+![bg right contain](./resources/SVM-workflow.png)
 
 ###  特征表达能力不足
 - HOG 只能捕捉**局部梯度统计**
@@ -480,8 +480,6 @@ $\space$
 - PCA可能丢弃**判别性特征**，SVM无法反馈优化特征提取
 
 ---
-
-#  深度学习如何解决这些问题？
 
 ## CNN 的解决方案
 
